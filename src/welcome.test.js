@@ -7,9 +7,9 @@ function setup() {
     return { wrapper };
   }
 
-  describe('WelcomeMessage Test Suite', () => {
-    it('Should Welcome render', () => {
+  describe('Welcome Message Test Suite', () => {
+    it('Should contain one h1', () => {
       const { wrapper } = setup();
-      expect(wrapper).toBeDefined();
+      expect(wrapper.find(".test").exists()).toBe(true);
     });
   });
