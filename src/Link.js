@@ -18,6 +18,7 @@ class Link extends React.Component {
         this.setState({ ...this.state, lifeCycle: 'ComponentDidMount' })
 
     }
+    hadleStr =  (input) => input === 'hello' ? true : false;
 
     render() {
         return (

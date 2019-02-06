@@ -26,6 +26,12 @@ describe('<Link />', () => {
     expect(wrapper.find('.lifeCycle').text()).toBe('ComponentDidMount');
   })
 
+  it('should get true false from hadleStr', ()=>{
+    const wrapper = shallow(<Link address='http://www.google.com' />)
+    expect(wrapper.instance().hadleStr('hello')).toBe(true);
+    expect(wrapper.instance().hadleStr('')).toBe(false);
+  })
+
   
  
 });
