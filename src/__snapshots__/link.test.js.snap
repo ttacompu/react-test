@@ -15,6 +15,11 @@ exports[`<Link /> Should contain link with test 1`] = `
     >
       Click
     </a>
+    <span
+      className="lifeCycle"
+    >
+      ComponentDidMount
+    </span>
   </div>
 </Link>
 `;

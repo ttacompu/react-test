@@ -2,6 +2,7 @@ import Link from './link';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json'
+//import jest from 'jest';
 
 
 describe('<Link />', () => {
@@ -13,10 +14,16 @@ describe('<Link />', () => {
 
   it('should get ok when click button', ()=>{
     const wrapper = shallow(<Link address='http://www.google.com' />)
-    const button=wrapper.find('a');
-    expect(button).toBeDefined();
-    button.simulate('click', {preventDefault : ()=>{}});
-    expect(wrapper.find('.buttonText').text()).toBe('OK');
+    expect(wrapper.find('.buttonText').text()).toBe('');
+    wrapper.setState({buttonText : 'ok'});
+    expect(wrapper.find('.buttonText').text()).toBe('ok');
+  })
+
+  it('link call componentDidMount', () =>{
+    jest.spyOn(Link.prototype, 'componentDidMount');
+    const wrapper = shallow(<Link address='http://www.google.com' />)
+    expect(Link.prototype.componentDidMount.mock.calls.length).toBe(1);
+    expect(wrapper.find('.lifeCycle').text()).toBe('ComponentDidMount');
   })
 
   
