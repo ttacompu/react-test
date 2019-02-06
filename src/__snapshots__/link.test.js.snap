@@ -4,11 +4,17 @@ exports[`<Link /> Should contain link with test 1`] = `
 <Link
   address="http://www.google.com"
 >
-  <a
-    className="test"
-    href="http://www.google.com"
-  >
-    Click
-  </a>
+  <div>
+    <div
+      className="buttonText"
+    />
+    <a
+      className="test"
+      href="#"
+      onClick={[Function]}
+    >
+      Click
+    </a>
+  </div>
 </Link>
 `;

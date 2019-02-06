@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './myStyle.scss';
+import Link from './Link';
 
 class App extends React.Component {
   state = {
@@ -43,6 +44,7 @@ class App extends React.Component {
     const { CaptainKirkBio, Foo } = this.state;
     return (
       <div className="app">
+       <Link address="http://www.google.com" />
         <img alt="header" src="/dist/images/header.png" className="app-header" />
         <p>
           We are a most promising species, Mr. Spock, as predators go. Did you know that? I
@@ -58,7 +60,7 @@ class App extends React.Component {
             )}
         </section>
         {Foo ? <Foo /> : <p>Foo is loading</p>}
-
+         
       </div>
     );
 
