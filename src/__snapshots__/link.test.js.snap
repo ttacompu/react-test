@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> Should contain link with test 1`] = `
+<Link
+  address="http://www.google.com"
+>
+  <a
+    className="test"
+    href="http://www.google.com"
+  >
+    Click
+  </a>
+</Link>
+`;
