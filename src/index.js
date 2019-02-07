@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './myStyle.scss';
-import Link from './Link';
+//import Link from './Link';
+import { todos } from './app.reducer';
+import { createStore, combineReducers } from 'redux';
+import {Provider, connect} from 'react-redux';
 
-class App extends React.Component {
+let id = 0;
+const reducers = combineReducers({ todos });
+
+/*class App extends React.Component {
   state = {
     CaptainKirkBio: {},
     Foo: null, // Foo is out component
@@ -11,7 +17,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.onGetKirkBio();
-    import(/* webpackChunkName: 'Foo' */ './Foo').then(Foo => {
+    import('./Foo').then(Foo => {
       this.setState({ Foo: Foo.default });
     });
   }
@@ -65,6 +71,71 @@ class App extends React.Component {
     );
 
   }
+}*/
+
+let AddInput = ({ handleClick }) => {
+  let todoItem;
+  return (
+    <div>
+      <input type="text" ref={input => todoItem = input}></input>
+      <button onClick={() => { handleClick(todoItem.value), todoItem.value = '' }} >Add</button>
+    </div>
+  )
+
+}
+const mapInputDispatchToProps = (dispatch) =>{
+    return {
+      handleClick : (todoItem) => dispatch({ type: 'ADD_TODO', payload: { id: id++, text: todoItem } })
+    }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+AddInput = connect(null, mapInputDispatchToProps)(AddInput)
+
+let TodoList = ({todos, handleRemove}) =>(
+  <ul>
+          {
+            todos.map(item => {
+              return (<li onClick={()=> handleRemove(item.id) } key={item.id}>{item.text}</li>)
+            })
+          }
+        </ul>
+)
+const mapTodoListStateToProps =({todos})=>{
+  return {todos}
+}
+
+const mapTodoListDispatchToProps =(dispatch)=>{
+    return {
+      handleRemove : (id) =>{ dispatch({ type: 'REMOVE_TODO', payload: id})} 
+    }
+}
+
+TodoList = connect(mapTodoListStateToProps, mapTodoListDispatchToProps)(TodoList);
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: []
+    }
+
+  }
+
+  render() {
+    return (
+      <div>
+        <AddInput />
+        <TodoList />
+      </div>
+
+    )
+  }
+
+}
+
+ReactDOM.render(
+  <Provider store={new createStore(reducers)}>
+    <App />
+  </Provider>
+, document.getElementById('app'));
