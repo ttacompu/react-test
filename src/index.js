@@ -4,7 +4,7 @@ import './myStyle.scss';
 //import Link from './Link';
 import { todos } from './app.reducer';
 import { createStore, combineReducers } from 'redux';
-import {Provider, connect} from 'react-redux';
+import { Provider, connect } from 'react-redux';
 
 let id = 0;
 const reducers = combineReducers({ todos });
@@ -78,36 +78,42 @@ let AddInput = ({ handleClick }) => {
   return (
     <div>
       <input type="text" ref={input => todoItem = input}></input>
-      <button onClick={() => { handleClick(todoItem.value), todoItem.value = '' }} >Add</button>
+      <button onClick={() => {
+        if (todoItem.value) {
+          handleClick(todoItem.value);
+          todoItem.value = ''
+        }
+
+      }} >Add</button>
     </div>
   )
 
 }
-const mapInputDispatchToProps = (dispatch) =>{
-    return {
-      handleClick : (todoItem) => dispatch({ type: 'ADD_TODO', payload: { id: id++, text: todoItem } })
-    }
+const mapInputDispatchToProps = (dispatch) => {
+  return {
+    handleClick: (todoItem) => dispatch({ type: 'ADD_TODO', payload: { id: id++, text: todoItem } })
+  }
 }
 
 AddInput = connect(null, mapInputDispatchToProps)(AddInput)
 
-let TodoList = ({todos, handleRemove}) =>(
+let TodoList = ({ todos, handleRemove }) => (
   <ul>
-          {
-            todos.map(item => {
-              return (<li onClick={()=> handleRemove(item.id) } key={item.id}>{item.text}</li>)
-            })
-          }
-        </ul>
+    {
+      todos.map(item => {
+        return (<li onClick={() => handleRemove(item.id)} key={item.id}>{item.text}</li>)
+      })
+    }
+  </ul>
 )
-const mapTodoListStateToProps =({todos})=>{
-  return {todos}
+const mapTodoListStateToProps = ({ todos }) => {
+  return { todos }
 }
 
-const mapTodoListDispatchToProps =(dispatch)=>{
-    return {
-      handleRemove : (id) =>{ dispatch({ type: 'REMOVE_TODO', payload: id})} 
-    }
+const mapTodoListDispatchToProps = (dispatch) => {
+  return {
+    handleRemove: (id) => { dispatch({ type: 'REMOVE_TODO', payload: id }) }
+  }
 }
 
 TodoList = connect(mapTodoListStateToProps, mapTodoListDispatchToProps)(TodoList);
@@ -138,4 +144,4 @@ ReactDOM.render(
   <Provider store={new createStore(reducers)}>
     <App />
   </Provider>
-, document.getElementById('app'));
+  , document.getElementById('app'));
