@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './myStyle.scss';
 //import Link from './Link';
 import { todos } from './app.reducer';
+import {TodoListContainer}from './todoList'
 import { createStore, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
 
@@ -97,26 +98,6 @@ const mapInputDispatchToProps = (dispatch) => {
 
 AddInput = connect(null, mapInputDispatchToProps)(AddInput)
 
-let TodoList = ({ todos, handleRemove }) => (
-  <ul>
-    {
-      todos.map(item => {
-        return (<li onClick={() => handleRemove(item.id)} key={item.id}>{item.text}</li>)
-      })
-    }
-  </ul>
-)
-const mapTodoListStateToProps = ({ todos }) => {
-  return { todos }
-}
-
-const mapTodoListDispatchToProps = (dispatch) => {
-  return {
-    handleRemove: (id) => { dispatch({ type: 'REMOVE_TODO', payload: id }) }
-  }
-}
-
-TodoList = connect(mapTodoListStateToProps, mapTodoListDispatchToProps)(TodoList);
 
 
 class App extends React.Component {
@@ -132,7 +113,7 @@ class App extends React.Component {
     return (
       <div>
         <AddInput />
-        <TodoList />
+        <TodoListContainer />
       </div>
 
     )
@@ -145,3 +126,5 @@ ReactDOM.render(
     <App />
   </Provider>
   , document.getElementById('app'));
+
+  
