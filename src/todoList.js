@@ -2,11 +2,15 @@ import React from 'react';
 import {  connect } from 'react-redux';
 
 
-export const TodoList = ({ todos, handleRemove }) => (
+export const TodoList = ({ todos, handleToggle, handleRemove }) => (
     <div>
       {
         todos.map(item => {
-          return (<div><a href="#" className="item" onClick={() => handleRemove(item.id)} key={item.id}>{item.text}</a></div>)
+          return (
+          <div  key={item.id}>
+              <button onClick={()=>{handleRemove(item.id)}}>x</button>
+              <span href="#" className={item.isChecked ? 'strike' : ''} onClick={() => handleToggle(item.id)}>{item.text}</span>
+          </div>)
         })
       }
     </div>
@@ -17,7 +21,8 @@ export const TodoList = ({ todos, handleRemove }) => (
   
   const mapTodoListDispatchToProps = (dispatch) => {
     return {
-      handleRemove: (id) => { dispatch({ type: 'REMOVE_TODO', payload: id }) }
+      handleRemove: (id) => { dispatch({ type: 'REMOVE_TODO', payload: id }) },
+      handleToggle: (id) => { dispatch({ type: 'TOGGLE_TODO', payload: id }) }
     }
   }
   
