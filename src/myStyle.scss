@@ -12,4 +12,19 @@ body {
   .strike{
     text-decoration: line-through;
   }
+
+  .todoItem{
+    margin-left:  5px;
+    cursor: pointer;
+  }
+
+  .FiltersContainer{
+    display : flex;
+    list-style-type: none;
+  }
+
+  .FiltersContainer li{
+    margin-right : 10px;
+    margin-left : 10px;
+  }
   

@@ -9,7 +9,7 @@ export const TodoList = ({ todos, handleToggle, handleRemove }) => (
           return (
           <div  key={item.id}>
               <button onClick={()=>{handleRemove(item.id)}}>x</button>
-              <span href="#" className={item.isChecked ? 'strike' : ''} onClick={() => handleToggle(item.id)}>{item.text}</span>
+              <span href="#" className={item.isChecked ? 'strike todoItem' : 'todoItem'} onClick={() => handleToggle(item.id)}>{item.text}</span>
           </div>)
         })
       }

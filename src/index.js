@@ -4,6 +4,7 @@ import './myStyle.scss';
 //import Link from './Link';
 import { todos } from './app.reducer';
 import {TodoListContainer}from './todoList'
+import {Filters} from './filters'
 import { createStore, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
 
@@ -98,7 +99,13 @@ const mapInputDispatchToProps = (dispatch) => {
 
 AddInput = connect(null, mapInputDispatchToProps)(AddInput)
 
+const mapFiltersDispatchToProps = (dispatch) =>{
+    return {
+      handleFilterClick : (currentFilter)  =>{console.log("dispatch current filter", currentFilter)} 
+    }
+}
 
+const FilterContainer = connect(null,mapFiltersDispatchToProps)(Filters)
 
 class App extends React.Component {
   constructor(props) {
@@ -114,6 +121,7 @@ class App extends React.Component {
       <div>
         <AddInput />
         <TodoListContainer />
+        <FilterContainer />
       </div>
 
     )
