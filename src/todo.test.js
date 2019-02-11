@@ -11,7 +11,7 @@ describe('<TodoList />', () => {
             handleRemove: jest.fn()
         }
         const wrapper = shallow(<TodoList {...props} />);
-        wrapper.find('a').simulate('click');
+        wrapper.find('button').simulate('click');
         expect(props.handleRemove).toHaveBeenCalledWith(1);
     })
 

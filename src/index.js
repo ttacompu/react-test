@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './myStyle.scss';
 //import Link from './Link';
 import { todos, currentFilter } from './app.reducer';
-import {TodoListContainer}from './todoList'
+import { TodoList } from './todoList'
 import {Filters} from './filters'
 import { createStore, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
@@ -98,6 +98,36 @@ const mapInputDispatchToProps = (dispatch) => {
 }
 
 AddInput = connect(null, mapInputDispatchToProps)(AddInput)
+
+const filterTodo = (data, currentFilter) => {
+  console.log(data, currentFilter)
+  switch (currentFilter) {
+    case "All":
+      return data;
+    case 'Completed':
+      return data.filter(todo => todo.isChecked)
+    case 'InCompleted':
+      return data.filter(todo => !todo.isChecked)
+
+    default:
+      return data;
+  }
+}
+
+const mapTodoListStateToProps = (state) => {
+  return { todos: filterTodo(state.todos, state.currentFilter) }
+}
+
+const mapTodoListDispatchToProps = (dispatch) => {
+  return {
+    handleRemove: (id) => { dispatch({ type: 'REMOVE_TODO', payload: id }) },
+    handleToggle: (id) => { dispatch({ type: 'TOGGLE_TODO', payload: id }) }
+  }
+}
+
+const TodoListContainer = connect(mapTodoListStateToProps, mapTodoListDispatchToProps)(TodoList);
+
+
 
 const mapFiltersDispatchToProps = (dispatch) =>{
     return {
