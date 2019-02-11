@@ -16,3 +16,11 @@ export const todos = (states = [], action)=>{
             return states;
     }
 }
+
+export const currentFilter= (state = "All", action)=>{
+        if(action.type === "FILTER_TODO"){
+            state = action.payload;
+        }
+        
+        return state;
+}

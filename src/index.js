@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './myStyle.scss';
 //import Link from './Link';
-import { todos } from './app.reducer';
+import { todos, currentFilter } from './app.reducer';
 import {TodoListContainer}from './todoList'
 import {Filters} from './filters'
 import { createStore, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
 
 let id = 0;
-const reducers = combineReducers({ todos });
+const reducers = combineReducers({ todos, currentFilter });
 
 /*class App extends React.Component {
   state = {
@@ -101,11 +101,15 @@ AddInput = connect(null, mapInputDispatchToProps)(AddInput)
 
 const mapFiltersDispatchToProps = (dispatch) =>{
     return {
-      handleFilterClick : (currentFilter)  =>{console.log("dispatch current filter", currentFilter)} 
+      handleFilterClick : (currentFilter)  =>{ dispatch({type : "FILTER_TODO", payload : currentFilter})} 
     }
 }
 
-const FilterContainer = connect(null,mapFiltersDispatchToProps)(Filters)
+const mapFiltersStateToProps = ({ currentFilter }) => {
+  return { currentFilter }
+}
+
+const FilterContainer = connect(mapFiltersStateToProps, mapFiltersDispatchToProps)(Filters)
 
 class App extends React.Component {
   constructor(props) {
